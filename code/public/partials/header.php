@@ -5,17 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+
     <title>PHP ex01</title>
 </head>
 
 <body>
-    <ul>
-        <?php foreach ($tasks as $task) : ?>
-            <li><?= $task->item ?></li>
 
-        <?php endforeach; ?>
-
-    </ul>
-</body>
-
-</html>
+    <?php require('nav.php') ?>
