@@ -17,4 +17,23 @@ class QueryBuilder
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_CLASS);
     }
+
+    public function storeTask($table, $params)
+    {
+        $query = sprintf(
+            "INSERT INTO %s (%s) values (%s)",
+            $table,
+            implode(',', array_keys($params)),
+            ':' . implode(', :', array_keys($params))
+        );
+
+        try {
+            $stmt = $this->pdo->prepare($query);
+            // $stmt->bindParam(':item', $_POST['item']);
+            //$stmt->bindParam(':item', $task);
+            $stmt->execute($params);
+        } catch (Exception $e) {
+            $e->getMessage("OH THERE IS A PROBLEM");
+        }
+    }
 }
