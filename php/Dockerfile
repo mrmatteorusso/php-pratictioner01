@@ -1,4 +1,5 @@
 FROM php:fpm-alpine
+RUN apk add --update linux-headers
 
 WORKDIR /srv/www
 
