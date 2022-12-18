@@ -7,7 +7,7 @@ $task = $_POST['task'];
 //var_dump($task);
 
 //$app['database']->storeTask($task);
-$app['database']->storeTask("todos",  ["item" => $task]);
+App::get('database')->storeTask("todos",  ["item" => $task]);
 //echo "you have reached add task php";
 // var_dump($_POST['task']);
 header('Location: /');
