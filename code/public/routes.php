@@ -7,7 +7,8 @@
 //     'tasks' => 'controllers/add-tasks.php'
 // ]);
 
-$router->get('', 'controllers/index.php');
-$router->get('aboutus', 'controllers/aboutus.php');
-$router->get('contactus', 'controllers/contactus.php');
-$router->post('tasks', 'controllers/add-tasks.php');
+$router->get('', 'PagesController@home');
+$router->get('aboutus', 'PagesController@about');
+$router->get('contacts', 'PagesController@contact');
+$router->get('users', 'UsersController@index');
+$router->post('users', 'UsersController@store');

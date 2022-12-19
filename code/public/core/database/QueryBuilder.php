@@ -18,7 +18,7 @@ class QueryBuilder
         return $statement->fetchAll(PDO::FETCH_CLASS);
     }
 
-    public function storeTask($table, $params)
+    public function insert($table, $params)
     {
         $query = sprintf(
             "INSERT INTO %s (%s) values (%s)",
@@ -33,7 +33,7 @@ class QueryBuilder
             //$stmt->bindParam(':item', $task);
             $stmt->execute($params);
         } catch (Exception $e) {
-            $e->getMessage("OH THERE IS A PROBLEM");
+            $e->getMessage("OH THERE IS A PROBLEM with connection");
         }
     }
 }

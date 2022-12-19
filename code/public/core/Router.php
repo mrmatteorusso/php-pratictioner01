@@ -1,28 +1,19 @@
 <?php
+
 class Router
 {
-    public $routes = [
-        "GET" => [],
-        "POST" => []
 
+    public $routes = [
+        'GET' => [],
+        'POST' => []
     ];
 
-    public function define($routes)
+    public static function load($file)
     {
-        $this->routes = $routes;
+        $router = new static;
+        require $file;
+        return $router;
     }
-
-
-    public function direct($uri, $requestType)
-    {
-        if (array_key_exists($uri, $this->routes[$requestType])) {
-            return $this->routes[$requestType][$uri];
-        }
-
-        throw new Exception('no route defined for this URI');
-    }
-
-
 
     public function get($uri, $controller)
     {
@@ -34,12 +25,26 @@ class Router
         $this->routes['POST'][$uri] = $controller;
     }
 
-    public static function load($file)
+    public function direct($uri, $requestType)
     {
-        $router = new static;
+        if (array_key_exists($uri, $this->routes[$requestType])) {
+            return $this->callAction(
+                ...explode('@', $this->routes[$requestType][$uri])
+            );
+        }
+        throw new Exception('HEY, THIS IS NOT A AUTO MESSAGE FROM THE BROWSER, I HAVE WRITTEN THIS MESSAGE: NO ROUTE DEFINED FOR THIS URI!!');
+    }
 
-        require $file;
+    protected function callAction($controller, $action)
+    {
+        $controllerObject = new $controller;
 
-        return $router;
+        if (!method_exists($controllerObject, $action)) {
+            throw new Exception(
+                "{$controller} does not respond to the {$action} action."
+            );
+        }
+
+        return $controllerObject->$action();
     }
 }
